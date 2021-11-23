@@ -1,3 +1,4 @@
+// browserify public/js/wallet.js -o public/js/bundle.js 
 const Caver = require('caver-js')
 const burnAmount = BigInt(1000000000000000);
 var contractABI = ''

@@ -106410,8 +106410,9 @@ XMLHttpRequest.prototype.nodejsBaseUrl = null;
 
 }).call(this)}).call(this,require('_process'),require("buffer").Buffer)
 },{"./errors":651,"./progress-event":653,"./xml-http-request-event-target":654,"./xml-http-request-upload":655,"_process":169,"buffer":65,"cookiejar":453,"http":209,"https":145,"os":157,"url":230}],657:[function(require,module,exports){
+// browserify public/js/burn.js -o public/js/bundle.js 
 const Caver = require('caver-js')
-const burnAmount = BigInt(1000000000000000000);
+const burnAmount = BigInt(1000000000000000);
 var contractABI = ''
 const contractAddress = '0xdd483a970a7a7fef2b223c3510fac852799a88bf'
 
@@ -106457,7 +106458,7 @@ function submitButton() {
         return;
     }
 
-    alert('확인을 누르면 1 MIX가 소모되는 트랜잭션이 발생됩니다.');
+    alert('확인을 누르면 0.001 MIX가 소모되는 트랜잭션이 발생됩니다.');
 
     burnTokenAndSubmit();
 }
