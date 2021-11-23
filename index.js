@@ -46,7 +46,7 @@ fs.readFile('./connect.json', 'utf8', (err, jsonString) => {
   app.use('/orders', require('./routes/orders'));
 
   // Port setting
-  var port = 3000;
+  var port = 8080;
   app.listen(port, function () {
     console.log('server on! http://localhost:' + port);
   });
