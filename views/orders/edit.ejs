@@ -89,10 +89,9 @@
 
     <script>
         const wallet = $('#wallet').val();
-        console.log(klaytn.selectedAddress + " / " + wallet)
-        if (!isOwnerAddr(klaytn.selectedAddress) && klaytn.selectedAddress != wallet) {
+        if (klaytn.selectedAddress == null || klaytn.selectedAddress != wallet) {
             alert('카이카스 지갑 주소가 다릅니다.');
-            window.location.href='/';
+            window.location.href = '/';
         }
     </script>
 </html>
