@@ -1,0 +1,98 @@
+<!-- views/orders/new.ejs -->
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <%- include('../partials/head') %>
+</head>
+
+<body>
+    <%- include('../partials/nav') %>
+
+        <div class="container mb-3">
+
+            <nav aria-label="breadcrumb">
+                <!-- 1 -->
+                <ol class="breadcrumb p-1 pl-2 pr-2">
+                    <li class="breadcrumb-item"><a href="/">Home</a></li>
+                    <li class="breadcrumb-item"><a href="/orders">Board</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Edit Order</li>
+                </ol>
+            </nav>
+
+            <form action="/orders/<%= order._id %>?_method=put" method="post">
+
+                <div class="form-group">
+                    <label for="title">제목</label>
+                    <input type="text" id="title" name="title" value="<%= order.title %>" class="form-control">
+                </div>
+
+                <div class="form-group">
+                    <label for="goods">Goods</label>
+                    <input type="text" id="goods" name="goods" value="<%= order.goods %>" readonly class="form-control">
+                </div>
+
+                <div class="form-group">
+                    <label for="name">수취인 (필수)</label>
+                    <input id="name" name="name" value="<%= order.name %>" class="form-control <%= (errors.name)?'is-invalid':'' %>">
+                    <% if(errors.name){ %>
+                        <span class="invalid-feedback"><%= errors.name.message %></span>
+                    <% } %>
+                </div>
+
+                <div class="form-group">
+                    <label for="phone1">연락처1 (필수)</label>
+                    <input id="phone1" name="phone1" value="<%= order.phone1 %>" class="form-control <%= (errors.phone1)?'is-invalid':'' %>">
+                    <% if(errors.phone1){ %>
+                        <span class="invalid-feedback"><%= errors.phone1.message %></span>
+                    <% } %>
+                </div>
+
+                <div class="form-group">
+                    <label for="phone2">연락처2 (선택)</label>
+                    <input id="phone2" name="phone2" value="<%= order.phone2 %>" class="form-control">
+                </div>
+
+                <div class="form-group">
+                    <label for="address">주소 (필수)</label>
+                    <input id="address" name="address" value="<%= order.address %>" class="form-control <%= (errors.address)?'is-invalid':'' %>">
+                    <% if(errors.address){ %>
+                        <span class="invalid-feedback"><%= errors.address.message %></span>
+                    <% } %>
+                </div>
+
+                <div class="form-group">
+                    <label for="message">배송 메세지 (선택)</label>
+                    <input id="message" name="message" value="<%= order.message %>" class="form-control">
+                </div>
+
+                <div class="form-group">
+                    <label for="wallet">지갑 주소</label>
+                    <input id="wallet" name="wallet" value="<%= order.wallet %>" readonly class="form-control">
+                </div>
+
+                <div>
+                    <a class="btn btn-primary" href="/orders?wallet=<%= order.wallet %>">Back</a>
+                    <button type="submit" class="btn btn-primary">Edit</button>
+                    <a class="btn btn-primary" href="javascript:void(0)" onclick="confirm('소모된 MIX는 반환이 불가합니다. 정말로 삭제합니까?')?$('#deleteForm').submit():null;">Delete</a>
+                </div>
+
+            </form>
+
+            <form action="/orders/<%= order._id %>?_method=delete" method="post" id="deleteForm" class="d-inline">
+                <input id="wallet" name="wallet" value="<%= order.wallet %>" style="display:none" class="form-control">
+            </form>
+
+        </div>
+    </body>
+
+    <script>
+        const wallet = $('#wallet').val();
+        console.log(klaytn.selectedAddress + " / " + wallet)
+        if (!isOwnerAddr(klaytn.selectedAddress) && klaytn.selectedAddress != wallet) {
+            alert('카이카스 지갑 주소가 다릅니다.');
+            window.location.href='/';
+        }
+    </script>
+</html>

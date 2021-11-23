@@ -1,0 +1,52 @@
+<!-- views/partials/nav.ejs -->
+
+<nav class="navbar navbar-expand-sm navbar-light bg-light mb-3">
+    <div class="container">
+      <div class="navbar-brand">ACB Goods</div>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav">
+          <li class="nav-item"><a href="/" class="nav-link">Home</a></li>
+          <li class="nav-item"><a id='orderLink' href="#" onclick="toOrders()" class="nav-link">Goods 신청</a></li>
+        </ul>
+        <ul class="navbar-nav ml-auto"> <!-- 우측정렬된 메뉴 -->
+            <button type="button" class="btn btn-primary" id="walletBtn" onclick="connectWallet()">카이카스 지갑 연동</button>
+        </ul>
+      </div>
+    </div>
+    <script>
+        $(function () {
+            updateWalletBtn(getConnectedWallet());
+        });
+
+        function toOrders() {
+            if (!getConnectedWallet()) {
+                alert("카이카스 지갑을 먼저 연동 해 주세요");
+                window.location.href='/';
+                return;
+            }
+            $('#orderLink').prop('href', '/orders?wallet=' + getConnectedWallet());
+        }
+
+        function getConnectedWallet() {
+            return klaytn.selectedAddress ? klaytn.selectedAddress : null;
+        }
+
+        function connectWallet() {
+            klaytn.enable().then((accounts) => {
+                console.log(accounts[0] + " " + klaytn.networkVersion);
+                updateWalletBtn(accounts[0]);
+                lastWallet = account[0];
+            });
+        }
+
+        function updateWalletBtn(address) {
+            if (address) {
+                $('#walletBtn').text(address);
+                $('#walletBtn').attr('disabled', true);
+            }
+        }
+    </script>
+</nav>
