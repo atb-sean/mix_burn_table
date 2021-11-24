@@ -21,12 +21,14 @@ router.get('/', function(req, res){
 router.post('/', function(req, res){
   var wallet = req.body.wallet;
 
-  Order.find({ wallet: wallet })
+  Order.count(function(err, count) {
+    Order.find({ wallet: wallet })
     .sort('-createdAt')
     .exec(function (err, orders) {
       if (err) return res.json(err);
-      res.render('orders/index', { orders: orders, wallet: wallet });
+      res.render('orders/index', { orders: orders, wallet: wallet, count:count});
     });
+  });
 });
 
 // New
