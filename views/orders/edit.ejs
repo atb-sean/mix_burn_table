@@ -42,6 +42,14 @@
                 </div>
 
                 <div class="form-group">
+                    <label for="name">카카오톡 닉네임 (필수)</label>
+                    <input id="kakao" name="kakao" value="<%= order.kakao %>" class="form-control <%= (errors.kakao)?'is-invalid':'' %>">
+                    <% if(errors.kakao){ %>
+                        <span class="invalid-feedback"><%= errors.kakao.message %></span>
+                    <% } %>
+                </div>
+
+                <div class="form-group">
                     <label for="phone1">연락처1 (필수)</label>
                     <input id="phone1" name="phone1" value="<%= order.phone1 %>" class="form-control <%= (errors.phone1)?'is-invalid':'' %>">
                     <% if(errors.phone1){ %>
@@ -73,7 +81,7 @@
                 </div>
 
                 <div>
-                    <a class="btn btn-primary" href="/orders?wallet=<%= order.wallet %>">Back</a>
+                    <a class="btn btn-primary" href="/orders">Back</a>
                     <button type="submit" class="btn btn-primary">Edit</button>
                     <a class="btn btn-primary" href="javascript:void(0)" onclick="confirm('소모된 MIX는 반환이 불가합니다. 정말로 삭제합니까?')?$('#deleteForm').submit():null;">Delete</a>
                 </div>
@@ -90,6 +98,15 @@
     <script>
         const wallet = $('#wallet').val();
         if (klaytn.selectedAddress == null || klaytn.selectedAddress != wallet) {
+            $('#title').val('');
+            $('#goods').val('');
+            $('#name').val('');
+            $('#kakao').val('');
+            $('#phone1').val('');
+            $('#phone2').val('');
+            $('#address').val('');
+            $('#message').val('');
+            $('#wallet').val('');
             alert('카이카스 지갑 주소가 다릅니다.');
             window.location.href = '/';
         }

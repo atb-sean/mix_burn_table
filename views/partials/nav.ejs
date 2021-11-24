@@ -11,9 +11,13 @@
           <li class="nav-item"><a href="/" class="nav-link">Home</a></li>
           <li class="nav-item"><a id='orderLink' onclick="toOrders()" href="#" class="nav-link">Goods 신청</a></li>
         </ul>
-        <ul class="navbar-nav ml-auto"> <!-- 우측정렬된 메뉴 -->
+        <ul class="navbar-nav ml-auto">
             <button type="button" class="btn btn-primary" id="walletBtn" onclick="connectWallet()">카이카스 지갑 연동</button>
         </ul>
+
+        <form action="/orders" method="post" id="toOrderForm" style="display:none">
+            <input type="text" id="walletInput" name="wallet" readonly class="form-control">
+        </form>
       </div>
     </div>
     <script>
@@ -24,7 +28,8 @@
 
         function toOrders() {
             if (klaytn.selectedAddress != null) {
-                $('#orderLink').prop('href', '/orders?wallet=' + klaytn.selectedAddress);
+                $('#walletInput').val(klaytn.selectedAddress);
+                $('#toOrderForm').submit();
                 return;
             }
             klaytn.enable().then((accounts) => {
@@ -35,7 +40,9 @@
                     window.location.href='/';
                     return;
                 }
-                window.location.href = '/orders?wallet=' + accounts[0];
+                
+                $('#walletInput').val(accounts[0]);
+                $('#toOrderForm').submit();
             });
         }
 

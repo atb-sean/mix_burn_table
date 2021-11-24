@@ -3,38 +3,50 @@
 var express  = require('express');
 var router = express.Router();
 var Order = require('../models/Order');
+var Goods = require('../models/Goods');
 
 function isOwnerAddr(addr) {
   return false;
 }
 
-// Index 
 router.get('/', function(req, res){
-  let { wallet } = req.query;
-  var condition;
-  if (isOwnerAddr(wallet)) {
-    condition = {}
-  } else {
-    condition = {wallet:wallet}
-  }
+  res.render('orders/check', {errorMessage:""});
+  // Goods.findOne({}, function (err, goods) {
+  //   console.log(goods);
+  // });
+});
 
-  Order.find(condition)
-  .sort('-createdAt')
-  .exec(function(err, orders){
-    if(err) return res.json(err);
-    res.render('orders/index', {orders:orders});
-  });
+// Index 
+router.post('/', function(req, res){
+  var wallet = req.body.wallet;
+
+  Order.find({ wallet: wallet })
+    .sort('-createdAt')
+    .exec(function (err, orders) {
+      if (err) return res.json(err);
+      res.render('orders/index', { orders: orders, wallet: wallet });
+    });
 });
 
 // New
 router.get('/new', function(req, res){
-  var order = req.flash('order')[0] || {};
-  var errors = req.flash('errors')[0] || {};
-  res.render('orders/new', { order:order, errors:errors });
+  Goods.findOne({}, function (err, goods) {
+    const nowDate = Date.now();
+    const startDate = Date.parse(goods.startDate);
+    const endDate = Date.parse(goods.endDate);
+    if (nowDate < startDate || endDate < nowDate)  {
+      res.render('orders/check', {errorMessage:"현재 굿즈 신청기간이 아닙니다."});
+      return;
+    }
+
+    var order = req.flash('order')[0] || {};
+    var errors = req.flash('errors')[0] || {};
+    res.render('orders/new', { order:order, errors:errors, goods:goods });
+  });
 });
 
 // create
-router.post('/', function (req, res) {
+router.post('/new', function (req, res) {
   Order.create(req.body, function (err, order) { 
     if (err) {
       console.log('err = ' + err)
@@ -42,7 +54,7 @@ router.post('/', function (req, res) {
       req.flash('errors', parseError(err));
       return res.redirect('/orders/new');
     }
-    res.redirect('/orders?wallet=' + req.body.wallet);
+    res.redirect('/orders');
   });
 });
 
@@ -68,6 +80,10 @@ router.put('/:id', function(req, res){
     parsed.name = { message: '수취인은 필수 항목입니다.' }
     error = true;
   }
+  if (req.body.kakao == "") {
+    parsed.kakao = { message: '카카오톡 닉네임은 필수 항목입니다.' }
+    error = true;
+  }
   if (req.body.phone1 == "") {
     parsed.phone1 = { message: '연락처1은 필수 항목입니다.' }
     error = true;
@@ -89,7 +105,7 @@ router.put('/:id', function(req, res){
       req.flash('errors', parseError(err));
       return res.redirect('/orders/' + req.params.id);
     }
-    res.redirect('/orders?wallet=' + req.body.wallet);
+    res.redirect('/orders');
   });
 });
 
@@ -97,7 +113,7 @@ router.put('/:id', function(req, res){
 router.delete('/:id', function(req, res){
   Order.deleteOne({_id:req.params.id}, function(err){
     if(err) return res.json(err);
-    res.redirect('/orders?wallet=' + req.body.wallet);
+    res.redirect('/orders');
   });
 });
 

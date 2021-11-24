@@ -21,7 +21,7 @@
                 </ol>
             </nav>
 
-            <form action="/orders" method="post" id="newForm">
+            <form action="/orders/new" method="post" id="newForm">
 
                 <div class="form-group">
                     <label for="title">제목</label>
@@ -30,23 +30,25 @@
 
                 <div class="form-group">
                     <label for="goods">Goods</label>
-                    <input type="text" id="goods" name="goods" value="픽셀캣 후드티" readonly class="form-control">
+                    <input type="text" id="goods" name="goods" value="<%= goods.name %>" readonly class="form-control">
                 </div>
 
                 <div class="form-group">
                     <label for="name">수취인 (필수)</label>
-                    <input id="name" name="name" value="<%= order.name %>" class="form-control <%= (errors.name)?'is-invalid':'' %>">
-                    <% if(errors.name){ %>
-                        <span class="invalid-feedback"><%= errors.name.message %></span>
-                    <% } %>
+                    <input id="name" name="name" value="<%= order.name %>" class="form-control">
+                    <span class="invalid-feedback">수취인은 필수 항목 입니다.</span>
+                </div>
+
+                <div class="form-group">
+                    <label for="name">카카오톡 닉네임 (필수)</label>
+                    <input id="kakao" name="kakao" value="<%= order.kakao %>" class="form-control">
+                    <span class="invalid-feedback">카카오톡 닉네임은 필수 항목 입니다.</span>
                 </div>
 
                 <div class="form-group">
                     <label for="phone1">연락처1 (필수)</label>
-                    <input id="phone1" name="phone1" value="<%= order.phone1 %>" class="form-control <%= (errors.phone1)?'is-invalid':'' %>">
-                    <% if(errors.phone1){ %>
-                        <span class="invalid-feedback"><%= errors.phone1.message %></span>
-                    <% } %>
+                    <input id="phone1" name="phone1" value="<%= order.phone1 %>" class="form-control">
+                    <span class="invalid-feedback">연락처1은 필수 항목 입니다.</span>
                 </div>
 
                 <div class="form-group">
@@ -56,10 +58,8 @@
 
                 <div class="form-group">
                     <label for="address">주소 (필수)</label>
-                    <input id="address" name="address" value="<%= order.address %>" class="form-control <%= (errors.address)?'is-invalid':'' %>">
-                    <% if(errors.address){ %>
-                        <span class="invalid-feedback"><%= errors.address.message %></span>
-                    <% } %>
+                    <input id="address" name="address" value="<%= order.address %>" class="form-control">
+                    <span class="invalid-feedback">주소는 필수 항목 입니다.</span>
                 </div>
 
                 <div class="form-group">
@@ -77,13 +77,15 @@
                 </div>
 
                 <div>
-                    <a class="btn btn-primary" href="/orders?wallet=<%= order.wallet %>">Back</a>
+                    <a class="btn btn-primary" href="/orders">Back</a>
                     <button id="newSubmitBtn" type="button" class="btn btn-primary">Submit</button>
                 </div>
 
             </form>
 
+            <label id="mixValue" style="display: none;"><%= goods.mix %></label>
         </div>
     </body>
-    <script src="/js/bundle.js"></script>
+    <script src="/js/bundle.js">
+    </script>
 </html>

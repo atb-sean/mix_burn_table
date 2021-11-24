@@ -1,0 +1,26 @@
+<!-- views/orders/index.ejs -->
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <%- include('../partials/head') %>
+</head>
+
+<body>
+    <%- include('../partials/nav') %>
+    <% if (errorMessage) { %>
+        <script>
+            alert('<%= errorMessage %>');
+        </script>
+    <% } %>    
+
+</body>
+
+<script>
+    $(function () {
+        toOrders();
+    });
+</script>
+
+</html>

@@ -49,11 +49,12 @@
   </body>
 
   <script>
-    const url = new URL(window.location.href);
-    const wallet = url.searchParams.get('wallet')
-    if (klaytn.selectedAddress == null || klaytn.selectedAddress != wallet) {
-      alert('카이카스 지갑 주소가 다릅니다.');
-      window.location.href = '/';
-    }
+    $(function() {
+      const wallet = '<%= wallet %>'
+      if (klaytn.selectedAddress == null || klaytn.selectedAddress != wallet) {
+        alert('카이카스 지갑 주소가 다릅니다.');
+        window.location.href = '/';
+      }
+    });
   </script>
 </html>

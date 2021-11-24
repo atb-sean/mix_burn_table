@@ -7,6 +7,7 @@ var orderSchema = mongoose.Schema({
     title: { type: String },
     goods: { type: String },
     name: { type: String, required: [true, '수취인은 필수 항목입니다.'] },
+    kakao: { type: String, required: [true, '카카오톡 닉네임은 필수 항목입니다.'] },
     phone1: { type: String, required: [true, '연락처1은 필수 항목입니다.'] },
     phone2: { type: String },
     address: { type: String, required: [true, '주소는 필수 항목입니다.'] },

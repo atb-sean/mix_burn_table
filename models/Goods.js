@@ -5,12 +5,13 @@ var mongoose = require('mongoose');
 // schema
 var goodsSchema = mongoose.Schema({
     name: { type: String, require: true },
-    imageUri: { type: String },
+    imageUrl: { type: String },
     exp: { type: String },
-    startedAt: { type: Date, default: Date.now },
-    endedAt: { type: Date },
+    mix: { type: Number },
+    startDate: { type: Date, default: Date.now },
+    endDate: { type: Date, default: Date.now },
 });
 
 // model & export
-var Goods = mongoose.model('order', goodsSchema);
+var Goods = mongoose.model('goods', goodsSchema);
 module.exports = Goods;
