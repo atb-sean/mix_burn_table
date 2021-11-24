@@ -4,6 +4,7 @@ var express  = require('express');
 var router = express.Router();
 var Order = require('../models/Order');
 var Goods = require('../models/Goods');
+const { now } = require('mongoose');
 
 function isOwnerAddr(addr) {
   return false;
@@ -32,8 +33,8 @@ router.post('/', function(req, res){
 router.get('/new', function(req, res){
   Goods.findOne({}, function (err, goods) {
     const nowDate = Date.now();
-    const startDate = Date.parse(goods.startDate);
-    const endDate = Date.parse(goods.endDate);
+    const startDate = Date.parse(goods.startDate) - 32400000; // UTC 0000 -> UTC 0900 (한국 표준시) 변경
+    const endDate = Date.parse(goods.endDate) - 32400000; // UTC 0000 -> UTC 0900 (한국 표준시) 변경
     if (nowDate < startDate || endDate < nowDate)  {
       res.render('orders/check', {errorMessage:"현재 굿즈 신청기간이 아닙니다."});
       return;
