@@ -1,2 +1,2 @@
-# cuna_nft_minting
-cuna nft minting site
+# mix burn table
+This is mix burn table.
