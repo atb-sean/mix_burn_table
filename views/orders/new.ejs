@@ -4,6 +4,7 @@
 <html>
 
 <head>
+    <script src="js/nftChecking_b.js"></script>
     <%- include('../partials/head') %>
     
 </head>
@@ -35,7 +36,7 @@
 
                 <div class="form-group">
                     <label for="name">수취인 (필수)</label>
-                    <input id="name" name="name" value="<%= order.name %>" class="form-control">
+                    <input id="name" name="name" value="<%= order.name %>" readonly class="form-control">
                     <span class="invalid-feedback">수취인은 필수 항목 입니다.</span>
                 </div>
 
@@ -47,24 +48,24 @@
 
                 <div class="form-group">
                     <label for="phone1">연락처1 (필수)</label>
-                    <input id="phone1" name="phone1" value="<%= order.phone1 %>" class="form-control">
+                    <input id="phone1" name="phone1" value="<%= order.phone1 %>" readonly class="form-control">
                     <span class="invalid-feedback">연락처1은 필수 항목 입니다.</span>
                 </div>
 
                 <div class="form-group">
                     <label for="phone2">연락처2 (선택)</label>
-                    <input id="phone2" name="phone2" value="<%= order.phone2 %>" class="form-control">
+                    <input id="phone2" name="phone2" value="<%= order.phone2 %>" readonly class="form-control">
                 </div>
 
                 <div class="form-group">
                     <label for="address">주소 (필수)</label>
-                    <input id="address" name="address" value="<%= order.address %>" class="form-control">
+                    <input id="address" name="address" value="<%= order.address %>" readonly class="form-control">
                     <span class="invalid-feedback">주소는 필수 항목 입니다.</span>
                 </div>
 
                 <div class="form-group">
                     <label for="message">배송 메세지 (사이즈 기재)</label>
-                    <input id="message" name="message" value="<%= order.message %>" class="form-control">
+                    <input id="message" name="message" value="<%= order.message %>" readonly class="form-control">
                 </div>
 
                 <div class="form-group">
@@ -84,6 +85,7 @@
             </form>
 
             <label id="mixValue" style="display: none;"><%= goods.mix %></label>
+            <label id="nftContract" style="display: none;"><%= goods.nft %></label>
         </div>
     </body>
     <script src="/js/bundle.js">

@@ -2,6 +2,7 @@
 const Caver = require('caver-js')
 var mixPeb = 0;
 var mix = 0;
+var nftContract = "";
 var contractABI = JSON.parse('[{		"constant": false,		"inputs": [			{				"name": "amount",				"type": "uint256"			}		],		"name": "burn",		"outputs": [],		"payable": false,		"stateMutability": "nonpayable",		"type": "function"	}]');
 const contractAddress = '0xdd483a970a7a7fef2b223c3510fac852799a88bf'
 
@@ -11,7 +12,25 @@ $(function() {
     mix = $('#mixValue').text();
     $('#mixValue').text("");
     mixPeb = BigInt(mix * 1000000000000000000);
+    nftContract = $('#nftContract').text();
+    $('#nftContract').text("");
 });
+
+async function hasAnyNft() {
+    if (nftContract == "") {
+        return true;
+    }
+
+    const _addr = klaytn.selectedAddress;
+    if (_addr == "") {
+        return false;
+    }
+
+    const caver = new Caver(klaytn);
+    const kip17 = caver.kct.kip17.create(nftContract);
+    kip17.balanceOf(_addr).then(console.log);
+    return await kip17.balanceOf(_addr) > 0;
+}
 
 function burnTokenAndSubmit() {
     if (!klaytn.selectedAddress) {
@@ -75,12 +94,18 @@ function checkField() {
     return valid;
 }
 
-function submitButton() {
+async function submitButton() {
     if (!checkField()) {
         return;
     }
 
     if (!checkAgreement()) {
+        return;
+    }
+
+    if (await hasAnyNft() == false) {
+        alert('ACB 홀더만 참여 가능 한 이벤트 입니다!');
+        window.location.href = '/';
         return;
     }
 

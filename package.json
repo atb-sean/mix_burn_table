@@ -1,7 +1,7 @@
 {
-  "name": "cuna_minting",
+  "name": "mix_burn_table",
   "version": "1.0.0",
-  "description": "Klaytn javascript native boilerplate",
+  "description": "",
   "main": "index.js",
   "dependencies": {
     "body-parser": "^1.19.0",
@@ -20,5 +20,8 @@
     "sockjs-client": "^1.5.2",
     "spin.js": "^4.1.1",
     "truffle-hdwallet-provider-klaytn": "^1.4.1"
+  },
+  "scripts": {
+    "start": "nodemon index.js"
   }
 }

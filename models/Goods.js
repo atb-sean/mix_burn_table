@@ -10,6 +10,7 @@ var goodsSchema = mongoose.Schema({
     mix: { type: Number },
     startDate: { type: Date, default: Date.now },
     endDate: { type: Date, default: Date.now },
+    nft: {type: String}
 });
 
 // model & export

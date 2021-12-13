@@ -21,12 +21,14 @@ router.get('/', function(req, res){
 router.post('/', function(req, res){
   var wallet = req.body.wallet;
 
-  Order.count(function(err, count) {
-    Order.find({ wallet: wallet })
-    .sort('-createdAt')
-    .exec(function (err, orders) {
-      if (err) return res.json(err);
-      res.render('orders/index', { orders: orders, wallet: wallet, count:count});
+  Goods.findOne({}, function (err, goods) {
+    Order.count(function(err, count) {
+      Order.find({ wallet: wallet })
+      .sort('-createdAt')
+      .exec(function (err, orders) {
+        if (err) return res.json(err);
+        res.render('orders/index', { goods: goods, orders: orders, wallet: wallet, count:count});
+      });
     });
   });
 });
@@ -42,7 +44,13 @@ router.get('/new', function(req, res){
       return;
     }
 
-    var order = req.flash('order')[0] || {};
+    var order = req.flash('order')[0] || {
+      "name": "-",
+      "phone1": "-",
+      "phone2": "-",
+      "address": "-",
+      "message": "-",
+    };
     var errors = req.flash('errors')[0] || {};
     res.render('orders/new', { order:order, errors:errors, goods:goods });
   });

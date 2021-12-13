@@ -3,6 +3,7 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <script src="js/nftChecking_b.js"></script>
     <%- include('../partials/head') %>
   </head>
   <body>
@@ -45,7 +46,7 @@
       </div>
 
       <div>
-        <a class="btn btn-primary" href="/orders/new">New</a>
+        <button type="button" class="btn btn-primary" id="newBtn" onclick="newBtn()">New</button>
       </div>
 
     </div>
@@ -57,7 +58,18 @@
       if (klaytn.selectedAddress == null || klaytn.selectedAddress != wallet) {
         alert('카이카스 지갑 주소가 다릅니다.');
         window.location.href = '/';
+        return;
       }
     });
+
+    async function newBtn() {
+      const goodsNft = '<%= goods.nft %>'
+      if (await hasAnyNft(goodsNft)) {
+        window.location.href = '/orders/new';
+      } else {
+        alert('ACB 홀더만 참여 가능 한 이벤트 입니다!');
+        window.location.href = '/';
+      }
+    }
   </script>
 </html>
