@@ -34,7 +34,7 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="name">트윗 아이디 (ex) @ARTCARPETBOMB</label>
+                    <label for="name">트윗 아이디 (필수) (ex) @ARTCARPETBOMB</label>
                     <input id="name" name="name" value="<%= order.name %>" class="form-control <%= (errors.name)?'is-invalid':'' %>">
                     <% if(errors.name){ %>
                         <span class="invalid-feedback"><%= errors.name.message %></span>
@@ -50,14 +50,14 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="phone1">Pixcel Cat #</label>
+                    <label for="phone1">가지고 계신 픽셀캣 번호를 하나만 적어주세요 (필수)</label>
                     <input id="phone1" name="phone1" value="<%= order.phone1 %>" class="form-control <%= (errors.phone1)?'is-invalid':'' %>">
                     <% if(errors.phone1){ %>
                         <span class="invalid-feedback"><%= errors.phone1.message %></span>
                     <% } %>
                 </div>
 
-                <label>고양이로 삼행시를 지어주세요 (운영진이 인정하는 센스있는 한분에게는 추첨 에드와는 별도로 NFT 한개를 드리겠습니다.)</label>
+                <label>고양이로 삼행시를 지어주세요. 운영진이 인정하는 센스있는 한분에게는 추첨 에드와는 별도로 NFT 한개를 드리겠습니다. (선택)</label>
 
                 <div class="form-group">
                     <label for="phone2">고</label>
