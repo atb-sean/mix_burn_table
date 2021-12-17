@@ -44,13 +44,7 @@ router.get('/new', function(req, res){
       return;
     }
 
-    var order = req.flash('order')[0] || {
-      "name": "-",
-      "phone1": "-",
-      "phone2": "-",
-      "address": "-",
-      "message": "-",
-    };
+    var order = req.flash('order')[0] || {};
     var errors = req.flash('errors')[0] || {};
     res.render('orders/new', { order:order, errors:errors, goods:goods });
   });
@@ -85,6 +79,7 @@ router.get('/:id', function (req, res) {
 
 // update
 router.put('/:id', function(req, res){
+  /*
   var parsed = {};
   var error = false;
   if (req.body.name == "") {
@@ -109,6 +104,7 @@ router.put('/:id', function(req, res){
     req.flash('errors', parsed);
     return res.redirect('/orders/' + req.params.id);
   }
+  */
 
   Order.findOneAndUpdate({ _id: req.params.id }, req.body, function (err, order) {
     if (err) {

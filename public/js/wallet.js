@@ -63,6 +63,7 @@ function burnTokenAndSubmit() {
 
 function checkField() {
     var valid = true;
+    /*
     if (!$('#name').val()) {
         $('#name').addClass("is-invalid");
         valid = false;
@@ -90,6 +91,7 @@ function checkField() {
     } else {
         $('#address').removeClass("is-invalid");
     }
+    */
 
     return valid;
 }
