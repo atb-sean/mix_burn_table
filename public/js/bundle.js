@@ -106533,7 +106533,7 @@ function checkAgreement() {
         return true;
     }
 
-    alert('개인정보 수집 활용에 동의 해 주세요.');
+    alert('아래 확인 사항을 읽고 동의 해 주세요.');
     return false;
 }
 

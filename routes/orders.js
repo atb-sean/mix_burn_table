@@ -40,7 +40,7 @@ router.get('/new', function(req, res){
     const startDate = Date.parse(goods.startDate) - 32400000; // UTC 0000 -> UTC 0900 (한국 표준시) 변경
     const endDate = Date.parse(goods.endDate) - 32400000; // UTC 0000 -> UTC 0900 (한국 표준시) 변경
     if (nowDate < startDate || endDate < nowDate)  {
-      res.render('orders/check', {errorMessage:"현재 굿즈 신청기간이 아닙니다."});
+      res.render('orders/check', {errorMessage:"현재 Event 신청기간이 아닙니다."});
       return;
     }
 
