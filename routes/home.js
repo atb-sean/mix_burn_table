@@ -12,4 +12,9 @@ router.get('/about', function(req, res){
   res.render('home/about');
 });
 
+router.get('/token', function (req, res) {
+    res.render('home/token');
+});
+
+
 module.exports = router; // module.exports에 담긴 object(여기서는 router object)가 module이 되어require시에 사용
