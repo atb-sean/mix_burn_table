@@ -16,5 +16,10 @@ router.get('/token', function (req, res) {
     res.render('home/token');
 });
 
+router.get('/governance', function (req, res) {
+    res.render('home/governance');
+});
+
+
 
 module.exports = router; // module.exports에 담긴 object(여기서는 router object)가 module이 되어require시에 사용
